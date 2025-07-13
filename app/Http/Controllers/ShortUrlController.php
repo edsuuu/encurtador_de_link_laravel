@@ -13,11 +13,7 @@ class ShortUrlController extends Controller
 {
     public function index(Request $request)
     {
-        $lat = $request->input('latitude');
-        $lng = $request->input('longitude');
-
-
-        Log::channel('daily')->info("Return navigator lat {$lat} , log {$lng}, {$request->getContent()}");
+        Log::channel('daily')->info("Return navigator ip {$request->ip()}");
 
         $this->getIp($request->ip(), $request->headers->all());
 
