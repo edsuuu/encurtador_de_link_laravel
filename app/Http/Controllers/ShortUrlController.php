@@ -68,4 +68,10 @@ class ShortUrlController extends Controller
 
         return Http::post( config('app.webhook'), $data);
     }
+
+
+    public function debugHeaders(Request $request)
+    {
+        return $this->index($request);
+    }
 }
