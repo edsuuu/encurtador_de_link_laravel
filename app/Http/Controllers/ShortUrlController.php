@@ -16,11 +16,12 @@ class ShortUrlController extends Controller
         $lat = $request->input('latitude');
         $lng = $request->input('longitude');
 
+
         Log::channel('daily')->info("Return navigator lat {$lat} , log {$lng}, {$request->getContent()}");
 
         $this->getIp($request->ip(), $request->headers->all());
 
-        return redirect('https://www.playstation.com/pt-br/playstation-network');
+        return redirect(config('app.redirectUrl'));
     }
 
     public function validateUrlAndCountView(Request $request, $encodeUrl)

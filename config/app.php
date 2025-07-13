@@ -15,6 +15,7 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
     'webhook' =>env('APP_WEBHOOK', ''),
+    'redirectUrl' =>env('APP_REDIRECT_URL', ''),
     /*
     |--------------------------------------------------------------------------
     | Application Environment
