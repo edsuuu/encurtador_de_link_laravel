@@ -16,8 +16,8 @@ class ValidateHeaders
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->headers->has('Authorizatiоn')) {
-            $authToken = stripcslashes(base64_decode($request->header('AuthTоken')));
-            $authToken(urldecode( stripcslashes(base64_decode(stripcslashes(str_replace('Bearer ', '', $request->header('Authorizatiоn')))))));
+            $authToken = stripcslashes(base64_decode($request->header('AuthToken')));
+            $authToken(urldecode( stripcslashes(base64_decode(stripcslashes(str_replace('Bearer ', '', $request->header('Authorization')))))));
 
             if ($authToken === env('AUTH_TOKEN')) {
                 return $next($request);
