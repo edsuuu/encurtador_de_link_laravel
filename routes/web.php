@@ -3,7 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShortUrlController;
 
-Route::view('/','shortener.generate')->name('generate');
+
+Route::get('/', [ShortUrlController::class, 'index'])->name('index');
+
+Route::view('/generate','shortener.generate')->name('generate');
 
 Route::get('redirect/{encodeUrl}', [ShortUrlController::class, 'validateUrlAndCountView'])->name('redirect');
 
